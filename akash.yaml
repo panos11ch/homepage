@@ -1,0 +1,31 @@
+---
+version: "2.0"
+services:
+  homepage:
+    image: panosdch/homepage:latest
+    expose:
+      - port: 80
+        as: 80
+        to:
+          - global: true
+profiles:
+  compute:
+    homepage:
+      resources:
+        cpu:
+          units: 1
+        memory:
+          size: 1Gi
+        storage:
+          - size: 1Gi
+  placement:
+    dcloud:
+      pricing:
+        homepage:
+          denom: uakt
+          amount: 1000
+deployment:
+  homepage:
+    dcloud:
+      profile: homepage
+      count: 1
